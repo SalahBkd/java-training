@@ -1,0 +1,17 @@
+--the problem
+    used to notify other object of the modification of a certain object
+
+--usecase
+    3adna DataSource & SpreadSHeet & Chart
+    kula mra an modfiew DataSource SpreadSheet & Chart mus get notified
+
+--communication style
+    push style: subject pushes the change to the observer, problem if we need more concrete
+    observers we may need to change the params at Observer interface level, not flexible
+
+    pull style: subject pulls the data they need from the observer, kayn coupling ms direction
+    dyalo mn observer towards the subject
+
+
+
+

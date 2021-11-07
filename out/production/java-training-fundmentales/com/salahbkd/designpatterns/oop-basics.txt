@@ -1,0 +1,85 @@
+--the essentials
+    what is an interface ?
+        a contract that specifies the capabilities that a class should provide
+
+        in simple terms: khasni program kaydir functionalities dyal Calendar
+            define the functions of a Calendar in an interface, the contracts
+
+            define a class (Simple Calendar or Premium Calendar) that implements had interface
+            and override the implementations of those functions in the contract.
+
+            instantiate the created class of type Calendar interface
+
+            we want a change in the class ?!
+
+            here it goes the job of the dependency injector (Frameworks...), hwa kay3tina
+            implementations of the interfaces
+
+    what is encapsulation ?
+        Encapsulation: meaning bundling the data and the methods that operates on the data
+        in a single unit.
+
+        preventing change to the state of objects.
+
+    what is Abstraction ?
+         Abstraction: reduce complexity by hiding unnecessary details.
+
+         we are only interested in navigating the browser not how the browser
+         will perform that task.
+
+         example: remote control, change channel, we are only interested in changing the channel
+         no other implementation details, like how the remote controller is gonna perform
+         the task, if we use the class of the remote controler in the main class and we make
+         a change to the remote controller class the main class will not get effected.
+
+    what is Inheritance ?
+        mechanism for re-using code
+
+        example: we are developing a web app that sells laptops products, those products have
+        common characteristics, setPositionInWebPage()
+
+        we define a shared type LaptopProduct with setPositionInWebPage() inside
+
+        we define Hp class that extends the shared type LaptopProduct
+        we define Dell class that extends the shared type LaptopProduct
+
+    what is Polymorphism ?
+        the ability to an object to take many forms
+
+        we can achieve this with abstract classes and methods
+        or with overriding methods implementations
+
+        example: we want a program that draws shapes, we define draw() function at an abstract
+        class or we define it in a type Shape and we leave out the implementation empty.
+
+        in the main program, we make a method that draws a shape, in its parameters there are
+        a a type of Shape
+
+        in the run-time we can pass any sub-types of Shape, cercle, triangle...etc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

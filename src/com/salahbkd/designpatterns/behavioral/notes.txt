@@ -1,0 +1,14 @@
+--what are design patterns ?
+    a way for structuring code for a specific problem.
+
+--behavioral patterns
+    Behavioral Class Patterns
+        how classes share responsibilities between themselves
+        focus on inheritance
+
+    Behavioral Objects Patterns
+        how different objects interact with each other
+        communication between objects
+        focus on composition
+
+

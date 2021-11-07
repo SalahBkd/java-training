@@ -1,0 +1,3 @@
+--keep your methods short 5-10 lines of code
+--extract repetitive patterns
+--extract highly related statements

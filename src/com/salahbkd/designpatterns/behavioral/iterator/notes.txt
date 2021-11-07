@@ -1,0 +1,12 @@
+--the problem
+    how to know the history of our browser ?
+    we can make a list in History class and retrieve the elements of that list each time in a loop
+    but when we make a change to the History class list variable like we want to use a stack rather than an ArrayList
+    the main class that uses History will be broken so we need a way to loose couple our classes
+
+
+--the solution
+    we can make new methods implementations in the History class (current() & next(), hasNext())
+    but that violates the SR pricniple, History Management & Iteration
+
+

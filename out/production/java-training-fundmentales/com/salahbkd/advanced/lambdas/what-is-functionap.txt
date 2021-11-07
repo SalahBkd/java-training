@@ -1,0 +1,33 @@
+Article: https://dev.to/christinamcmahon/what-is-functional-programming-5773
+
+Intro to functional programming
+	I/O with functions (pure)
+	Immutable data - copies (persistent data structures)
+	Side affects
+	first class functions
+	
+Important Notes About Functional Programming
+	Programming paradigm
+	rotted in mathematics
+	language independent
+	key principle: all the computation is the execution of mathematical functions
+	function: 
+		mapping inputs to outputs
+		can't change their inputs
+		can't change variables (Immutability)
+		programming without variable assignment 
+		
+Pros of immutability
+	programs are logical 
+	built for distributed computing
+	easy to test
+	
+Why i should care ?
+	Functional code tends to be more concise, more predictable, and simpler to test
+Cons
+	intimidating to learn
+	
+Article: https://dev.to/christinamcmahon/what-is-functional-programming-5773
+	
+	
+	

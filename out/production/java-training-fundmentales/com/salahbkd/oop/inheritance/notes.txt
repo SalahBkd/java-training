@@ -1,0 +1,11 @@
+--final keyword with inheritance
+    used in a class that you dont want to extend
+    and methods that you dont want to override
+
+--interfaces usage
+    import constants
+    extend each other
+
+    interfaces can have default methods
+    if we have a class that implements two interfaces that have the same default method
+    the class MUST override the default method

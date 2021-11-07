@@ -1,0 +1,40 @@
+what is a queue ?
+	A Queue is a linear structure which follows a particular order in which the operations are 
+	performed. The order is First In First Out (FIFO). A good example of a queue is any queue 
+	of consumers for a resource where the consumer that came first is served first. 
+	The difference between stacks and queues is in removing. In a stack we remove the item 
+	the most recently added; in a queue, we remove the item the least recently added.
+	
+real world scenarios:
+	Ila kan 3adna wa7d resource that must be shared, but the resource can serve only one at a time.
+	examples: shared printer in a network: bzaf d requests kayjiw li printer then it queues them.
+			  CPUs: managing processes.
+			  Saf dyal nas chadin saf.
+			  Web Servers.
+	
+Queue ADT
+	operations:
+		enqueue() 
+		dequeue()
+		front()
+		isEmpty()
+		
+-- Implementations
+	we can implement queues using array or linkedlist
+	
+--Priority queues
+	objects are processed by priority not the order in which they joined the queue
+	example: ordering mails based on their priority 
+	implemented using array/heap
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

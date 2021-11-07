@@ -1,0 +1,13 @@
+--intro to trees
+    non-linear DS
+    used to represent hierarchical data
+
+    use cases: database indexes, compilers syntax tree, compression algos
+    lookup O(log n), insert(log n), delete(log n)
+    reqs: the tree must be structured properly or we run into O(n)
+    binary tree: have at max two childes
+    binary search tree: must be structured properly to look up items very quickly O(log n)
+
+
+
+

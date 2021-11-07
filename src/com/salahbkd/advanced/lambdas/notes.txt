@@ -1,0 +1,193 @@
+--Lambdas
+    enables functional programming
+
+
+--Functional interfaces
+	if a an interface has one single abstract method it's called functional
+	(check out TestLogger.java, Console.logger.java, Logger.java)
+	
+	sometimes we don't want to explicitly create a class to implement an interface we may not need to reuse that class
+	and it requires us to write additional code
+
+	
+--Anonymous inner classes
+	(check out TestLogger.java)
+	An anonymous inner class can come useful when making an instance of an object with certain 
+	"extras" such as overriding methods, without having to actually subclass a class.
+	
+	for example 3adna wa7d lmethod smitha log() fi wahd interface fonctionnelle ma7tajinha, how we would call it
+	bla mandiro wa7d class that implements had interface, hadchi lach AIC are used for.
+	
+	--example:
+	button.addActionListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+	        // do something
+	    }
+	});
+	
+	I only use this technique for "quick and dirty" tasks where making an entire class feels 
+	unnecessary. Having multiple anonymous inner classes that do exactly the same thing should be 
+	refactored to an actual class, be it an inner class or a separate class.
+
+--Lambda expression
+	(check out TestLogger.java)
+	Lambda expressions basically express instances of functional interfaces 
+	(An interface with single abstract method is called functional interface. 
+	An example is java.lang.Runnable). lambda expressions implement the only abstract function 
+	and therefore implement functional interfaces
+	
+	lambda expressions 4a high level model dyal instance of a functional interface li hwa objet
+	de base.
+
+	lambda expressions are added in Java 8 and provide below functionalities.
+	
+	. Enable to treat functionality as a method argument, or code as data.
+	. A function that can be created without belonging to any class.
+	. A lambda expression can be passed around as if it was an object and executed on demand.
+	
+-- Variable capture
+	in lambdas this references the current object
+	in AIC this references the instance of the AIC
+	in lambdas we cannot have state
+	in AIC we can have state
+	
+	--example
+	class TestLogger {
+	
+		public static String str2;
+		public static test() {
+			String str;
+			// we can access the local variable str, and the static variable str2
+			log((message) -> System.out.println(str + str2 + message));		
+		}
+	}
+
+-- Method references
+	with method references we can write compact and easier to read lambda expressions.
+	we can reference static and instance methods within a class as well as constructors 
+	
+	--example1:
+	class TestLogger {
+	
+		public static String str2;
+		public static test() {
+			String str;
+			// we can access the local variable str, and the static variable str2
+			log(System.out::println);
+		}
+	}
+	
+	--example2:
+	class TestLogger {
+	    public TestLogger(String msg) {
+	    }
+		public static test() {
+			log(message -> new TestLogger(message));
+			log(TestLogger::new);				
+		}
+	}
+	
+-- Built-in functional interfaces
+	java provides built in functional interfaces to perform common tasks
+	package java.lang.function (check out the docs)
+	we have four categories of these functions
+	
+	. Consumer: an operation that takes a single argument and returns no result 
+		(consuming a value)
+		
+	. Supplier : the opposite of the consumer interface (returns a value)
+	
+	. Function: can map a value to a different value
+	
+	. Predicate: an operation that takes an object and checks to see if that object 
+		satisfies some criteria. (filtering data)
+		
+		
+-- Consumer interface
+	why ?
+	a lot of methods in java expects an object that implements the consumer interface
+
+	interface variation: BiConsumer, IntConsumer, recommended to use those interfaces to not pay the cost of autoboxing.
+
+	example: check out ConsumerInterfaceImpl.java
+	
+-- chaining consumers
+	nqadro ndiro chaining l consumers example: print every string of that list then print it
+	in upper case.
+	
+	(check out ConsumerInterfaceImpl.java)
+	
+-- Supplier interface
+	it supplies a value has no arguments.
+	we have primitive types specialization of the interface to avoid boxing and unboxing
+	(check out SupplierInterface.java)
+	
+-- Function interface
+	Represents a function that accepts one argument and produces a result.
+	(check out FunctionInterface.java)
+	
+-- Composing functions
+	andThen(arg)
+	Returns a composed function that first applies this function to its input, 
+	and then applies the after function to the result.
+	
+	compose(arg)
+	Returns a composed function that first applies the before function to its input, 
+	and then applies this function to the result.
+	
+	(check out FunctionInterface.java)
+	
+-- Predicate interface
+	used to filter data
+	Returns a composed function that first applies the before function to its input, 
+	and then applies this function to the result.
+	
+	(check out PredicateInterface.java)
+	
+-- BinaryOperator
+	Represents an operation upon two operands of the same type, producing a result of the 
+	same type as the operands. This is a specialization of BiFunction for the case where 
+	the operands and the result are all of the same type.
+	
+	can be used with Function interface
+	
+	(check out BinaryOperatorInterface.java)
+	
+-- UnaryOperator interface
+	UnaryOperator is a functional interface, which extends the java. util. function. 
+	Function interface . The UnaryOperator interface represents an operation that takes a 
+	single argument and returns a result of same type as its input argument
+	
+	(check out UnaryOperatorInterface.java)
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	

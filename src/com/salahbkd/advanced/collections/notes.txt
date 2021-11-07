@@ -1,0 +1,134 @@
+--the need for collections
+    pre-collections: vector, array, hashtable
+
+    the problem with arrays: limited DS, don't have methods, they introduce Arrays class
+
+    the collections need:
+        position based access & sorting
+        uniqueness
+        retrieval mechanism, index and key based access
+        mutability
+        concurrency
+
+--Collection framework
+	The Collection in Java is a framework that provides an architecture to store and manipulate 
+	the group of objects.
+	
+	Java Collections can achieve all the operations that you perform on a data such as 
+	searching, sorting, insertion, manipulation, and deletion.
+	
+	Java Collection means a single unit of objects. Java Collection framework provides many 
+	interfaces (Set, List, Queue, Deque) and classes (ArrayList, Vector, LinkedList, PriorityQueue, 
+	HashSet, LinkedHashSet, TreeSet).
+	
+	A Collection represents a single unit of objects, i.e., a group.
+	
+	The Collection framework represents a unified architecture for storing and manipulating a 
+	group of objects. It has:
+		. Interfaces and its implementations, i.e., classes
+		. Algorithm
+
+--Iterables
+	problem:
+		to iterate over a list of a generic class:
+			GenericList<String> list = new GenericList<>()
+			for(String item : list.items)
+				syso(item);
+		
+		we are exposing an implementation detail of the generic class (items).
+		if we change the items type of GenericList to ArrayList for example all the code 
+		that depends on that class will be broken.
+		
+	solution:
+		(check out TestGenericList.java, GenericList.java)
+		
+		the solution is to create an object that iterates over our generic class, that object
+		will implement the Iterable interface that has iterator() method that we must implement
+		that returns an object of type Iterator interface.
+		
+		The iterator interface can be implemented by a nested class so we can access 
+		private fields of the GenericList (items), now if we change anything about the 
+		Genericlist field (items) we can modify the nested class behavior and the code will 
+		work out fine.
+		
+		var list = new GenericList<String>()
+		var iterator = new list.iterator();
+		
+		while(iterator.hasNext()) {
+			syso(iterator.next());
+		}
+		
+--Collection interface (check the docs)
+	it extends the iterable interface.
+	
+	when using the collection interface we just care about adding and removing objects from 
+	the collection allows to:
+		contains()
+		remove()
+		add()
+		addAll()
+		isEmpty()
+		equals()
+		...
+		
+-- List interface (check the docs)
+	it extends the Collection interface.
+	List or Sequence we use them if we care about the index of objects in the collection
+	allows to:
+		add()
+		addAll()
+		set()
+		lastIndexOf()
+		subList()
+		...
+		
+-- Comparable interface
+	if we want to sort a list of objects we have to implement this interface.
+	
+	used to compare objects by overriding the compareTo() method, we compare the objects based on
+	their fields.
+	
+	List<User> users = new ArrayList<>();
+	users.add(new User("Bser"));
+	users.add(new User("Auser"));
+	Collections.sort(users);
+	// the User must implement the Comparable interface and compare the objects based on 
+	the name field.
+	
+-- Comparator Interface
+	if we want to sort a list of objects using a comparator class
+	
+	used to compare objects by creating a class that implements Comparator interface then we 
+	specify which field that object should be compared to.
+	
+	List<User> users = new ArrayList<>();
+	users.add(new User("Bser"));
+	users.add(new User("Auser"));
+	Collections.sort(users, new NameComparator());
+	
+-- Queue interface
+	it extends the collection interface, used to process jobs in the order they are received.
+	example: printer.
+	
+	(check out ads package project and the docs)
+
+-- Set interface
+	it extends the Collection interface represents a collection that contains no duplicates.
+	doesn't maintain the order of elements
+	four essential operations:
+		union - addAll()
+		intersection - retainAll()
+		difference - removeAll()
+
+-- Maps
+	java implementation of hash tables
+	used to store key value pairs 
+	does not implement the Iterable interface, to iterate over a Map object we can't use foreach.
+	we can use the keySet() function to iterate over the keys of a map.
+	does not maintain the order of the elements.
+		
+		
+		
+		
+	
+		

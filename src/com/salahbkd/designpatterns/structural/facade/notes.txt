@@ -1,0 +1,15 @@
+--the problem
+    def: used to provide a simple interface for a complex system
+
+    usecase: imagine we want to implement a push notification feature
+    NotificationServer = connect() -> return Connection that we gonna close
+    authenticate(appId, key) -> AuthToken
+    send(authToken, message, target)
+    conn.disconnect()
+
+    with this approach, the Main program will depend heavily on the NotificationServer, AuthToken
+    Connection objects if want to make a change all those classes will be affected.
+
+    solution: introduce a new interface that will have a send method thats gonna responsible
+    for the push notification, and implement it through various classes (Main..etc)
+

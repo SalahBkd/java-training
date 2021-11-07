@@ -1,0 +1,112 @@
+--what is a stream ?
+	think of RTA7A of water its a collection, w pipes li kharjin menha are streams.
+	streams were introduced in java to process a collection of data in declarative way
+	that makes our code cleaner and simpler to read.
+	(check out TestProduct.java)
+	
+	in streams we have two types of operations:
+		Intermediate: map(), filtre()
+		Terminal: forEach()
+	
+-- Creating streams
+	we have different methods to create streams.
+	from collections
+	from an arbitary number of objects
+	infinite/finite streams
+	
+	
+-- Mapping elements
+	we can transform the values in our stream
+	using: map(), flatMap()
+	(check out TestProduct.java)
+	
+-- Filtering elements
+	we can filtre elements of a stream using filtre()	
+	(check out TestProduct.java)
+	
+--Slicing streams
+	we can slice a stream using these methods:
+		limit(), skip(), takeWhile(), dropWhile()
+		
+	takeWhile() vs filter()
+		takewhile: stops the moment the predicate returns false;
+		filter: iterates the entire datasource to find objects that match our criteria
+		
+	(check out TestProduct.java)
+		
+		
+-- Sorting elements
+	we can sort a datasource with streams using sorted()
+	(check out TestProduct.java)
+	
+-- Peeking elements
+	we can use peek() to troubleshoot problems
+	(check out TestProduct.java)
+	
+-- Simple reducer
+	they are terminal operations (they produce a result):
+		count()
+		anyMatch(predicate)
+		allMatch(predicate)
+		noneMatch(predicate)
+		findFirst()
+		findAny()
+		max(comparator)
+		min(comparator)
+	(check out TestProduct.java)
+	
+		
+-- Collectors
+	they can convert a data stream into a data structure
+	
+	// Converting a data stream into a Map. 
+	stream().collect(Collectors.toMap(p -> p.getName()), p -> p.getPrice());
+	
+
+-- Grouping elements with collectors
+	we can group elements of a data stream based on some criteria
+	
+	stream()
+	.collect(Collectors.groupingBy(p -> p.getCategory()));
+	
+-- Partitioning elements
+	we can partition elements of a data stream based on some criteria
+	
+	var newDataSet = stream().collect(Collectors.partitioningBy(p -> p.getPrice() > 50));
+	
+-- Primitive types stream
+	All operations like sorting, slicing, grouping are applied to primitive streams
+	
+	IntStream.range() | IntStream.rangeClosed() 
+	LongStream
+	DoubleStream
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+

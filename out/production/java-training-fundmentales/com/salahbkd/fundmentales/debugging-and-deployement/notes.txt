@@ -1,0 +1,6 @@
+--types of errors
+    compile-time errors (community)
+    run-time errors (debugger)
+
+--debugging java apps
+--packaging java apps

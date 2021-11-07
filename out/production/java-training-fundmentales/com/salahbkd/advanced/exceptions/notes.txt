@@ -1,0 +1,101 @@
+--exception handling
+    providing an alternate course of execution
+
+    we handle run-time errors
+
+    execution flow in try catch block, catch(ArithmeticException) -- catch(Exception)
+
+    we can have nested try-catch blocks
+
+    RunTimeException: something that happens at run-time, its not a must to catch it (unchecked)
+
+    Exception: MyException extends Exception, its a must to surround the code that throws MyException with try-catch (checked)
+
+    we can chain exceptions
+
+    best practices:
+        - do not use generic catch all exceptions
+        - use exception chaining to make handling consistent
+        - pay attention to the exception order in your catch block
+        - use checked exceptions whenever you can work arround the issue
+        - make sure you clean up resources with finally or try with resources
+
+    try with resources, the object must implement Closable interface, then if we put that object in TRY it will
+    automatically close up.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--Exceptions
+	chnahya ?
+		unwanted event (evenement exceptionnelle), katwqa3 fi l'execution dyal programme kat7bas
+		l'execution dyal programme, ana ka developer khasni ngerehom (handling exceptions)
+	
+	error vs exception
+		error: chi haja critique w man9droch ndirolha handling, ex: stackoverflow error, 
+		out of memory error (Errors dyal JVM)
+		exception: nqadro ndirolha handling, try/catch (ex: FileNotFoundException)
+		
+--Types of exceptions
+		Checked
+			checked fi compile time, ex: FileNotFoundException
+			ila b4it ndir read lchi file w hwa makaynch compiler 4ay checki had lqadya fi
+			compilte-time w 4adi ygolna had block of code zqch khas ndiroh wast try/catch
+			
+		Unchecked
+			checked fi run-time kaywq3o because of programming erros, ex: NullPointerException, 
+			ArithmeticExpression
+		Error
+		
+		Throwable -> Exception (checked) -> RuntimeException (Unchecked) -> NullPointerException
+		
+--Handling exceptions
+	we can handle exceptions with TRY/CATCH block.
+	we can handle multiple exceptions with multiple CATCH blocks
+	
+	Example1:
+		catch(IOException e) {...}
+		catch(ParseException e)
+	
+	Example2:
+		catch (IOException | ParseException e) {..}
+	
+	the finally block
+		used to release external resources (connections..etc)
+	
+	the try-with-resource Statement
+		try(FileReader reader = new FileReader("file.txt")) {...}
+		
+		the reader object will be closed automatically if 'reader' implements the Autocloseable 
+		interface and when the try block is finished
+		 
+	throwing exceptions
+		void method() throws IOException {
+			throw new IOException()
+		}
+
+--Custom exceptions
+	used in frameworks and large entreprise applications.
+	(check out the src folder for code example)
+
+--Chaining exceptions
+	let's assume bli eadna bzaf dyal les exceptions li related la gestion dyal compte, 
+	SoldeMakafichException..etc n9adro ndiro class CompteException and we wrap it arround
+	other exceptions. (check out src folder for code example)
+	used also in building libraries and frameworks

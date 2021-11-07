@@ -1,0 +1,17 @@
+--the problem
+    used to add additional behavior to an object
+    imagine we want to implement a storage feature ina cloud-service,
+    we introduce a CloudStream class
+
+    we want to encrypt data before storing in it, we introduce a EncryptedCloudStream
+    that extends CloudStream and overrides store() method
+
+    we want to compress data before storing it, we introduce a CompressedCloudStream
+    that extends CloudStream and overrides store() method
+
+    we want to compress and encrypt data, we introduce a CompressedEncryptedCloudStream
+    ... that's not efficient, we introduce a class for every feature.
+
+
+
+

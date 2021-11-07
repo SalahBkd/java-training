@@ -1,0 +1,18 @@
+why ?
+	interfaces used to create loosely coupled, extensible and testable code.
+	used to achieve abstraction
+	used to achieve multiple inheritance
+	
+	used in dependency injection (coding agains interface)
+		constructor injection
+		setter injection
+		method injection
+	
+what ?
+	interface in java is a contract for other classes to implement, is a type that containes abstract methods and static constants.
+	An interface in Java is a blueprint of a class. It has static constants and abstract methods.
+
+how ?
+	one class can implement several interfaces 
+	an interface can implement another interface
+	

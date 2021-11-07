@@ -1,0 +1,53 @@
+--what are hash tables ?
+-- use cases: spell checkers, dictionaries, compilers, code editors
+
+--how they work ?
+	we use them to store key value pairs
+	studentNumber --> hash function --> address of the object (value)
+	
+--hash tables are deterministic, the same input --> the same value
+
+--operations: insert, lookup, delete --> all O(1)
+
+--SETS
+	hashset - doesn't allow duplicates 
+	
+--collisions
+	its possible that 2 distinct keys generate the same hash value ?
+	solution one - chaining we can have a linked list in each array cell
+	solution two - open addressing  finding second slot for storing the other value
+		linear probing/searchings - hash(key) + 1 finds an empty slot traversing the array 
+		when the array gets full we end up with big clusters.
+		
+		quadratic probing - (hash(key) + isquare(2) % table_size) rather than finding a slot in linear fashion
+		like 1 2 3 4 5 now its 1 2 4 8..., we end up making big jumps to find an empty slot we may repeat the same
+		jumpes over again in the start of the array we may end up in an infinite loop.
+		
+		double hashing - (hash1 + i * hash2) % table_size uses independant hash function to calculate the number of steps
+		
+
+--note about refactoring
+	if you are refactoring a piece of code its important that you have automated tests to not break your code.
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

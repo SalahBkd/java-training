@@ -1,0 +1,32 @@
+--Types
+    primitive:
+        8types: byte, short, int, long, float, double, char, boolean
+    reference:
+        Date object, Email Message object..etc
+
+    String
+        string in java are immutable, if we have a method that modifies a string it returns a new string
+
+    1D Arrays & 2D arrays
+
+    constants:
+        final float PI = 3.14F;
+
+    order of operators
+     () - * - /...etc
+
+    casting
+
+    math
+
+    formatting numbers
+
+    reading input
+
+
+
+
+
+
+
+

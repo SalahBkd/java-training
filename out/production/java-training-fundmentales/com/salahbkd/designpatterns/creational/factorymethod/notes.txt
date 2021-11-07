@@ -1,0 +1,8 @@
+used when a class doesn't know exactly what object types need to be created
+
+the candy analogy, we want different kind of candies, We have CandyStore, CandyFactory,
+CandyClient, if we want different kind of candies the we won't implement the logic in candy store,
+we will be talking to the CandyFactory to create that kind of candy.
+
+Factory Method is a creational design pattern that provides an interface for creating objects
+in a superclass, but allows subclasses to alter the type of objects that will be created.

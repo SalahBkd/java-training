@@ -1,0 +1,93 @@
+Intro:
+	working with threads is complex before java 5, java5 introduced high level abstractions 
+	that simplify building concurrent applications, with this abstractions we don't need
+	explicitly to work with threads, we focus on our tasks and let java handles threads
+	manipulations.
+	
+Topics
+	1- thread pools
+	2- executors
+	3- callable and future interfaces
+	4- asynchronous programming
+	5- completable futures
+	
+-- 1- Thread Pools
+	when manipulating threads we run into two problems
+	availability: if we create more threads than what is available we may run into OutOfMemory
+		error.
+	cost: creating and destroying threads is expensive
+	
+	java5 came up with a solution: Thread Pool
+	had thread pool kay creer threads ila 7tajinahom kantalbohom mn eando mn ba3d fach
+	kansaliw karaj3ohomlo to be reused (we don't create and destroy threads every time), ila kan 3adna 
+	number dyal operations kaytalab threads ktar, thread pool kaychad had operations w 
+	kaydirhom fi queue, thread pool 3ando fixed number of threads so we don't worry about
+	running out of memory.
+	
+	
+-- 2- executors
+	we can implement the thread pool using ExecutorService interface and its various implementations.
+	(check out TestThreadPool.java	)
+	
+-- 3- futures and callables
+	callable are like the runnable object but its a task that returns a value
+	(check out TestThreadPool.java)
+	
+-- 4- asynchronous programming
+	writing code in an asynchronous way (non-blocking)
+	metaphor: the waiter, kaymchi y annoncer your order w mn baed kaymchi yservi nas akhrin (the waiter == the main thread)
+	
+-- 5- Completable Futures: a future that may be explicilty completed (setting its value and status)
+	it has two implementations Future and CompletionStage
+	
+	--implementing an asynchronous APIs (check out TestMailService.java & MailService.java)
+	
+	--running code on completion (check out RunCodeOnCompletion.java)
+	
+	--handling exceptions 
+	we can use future.exceptionally() on a future to handle default values of futures, they return a new CompletableFuture
+	not the original one.
+	
+	--transforming results
+		when we want to transform the result of an asynchronous task
+		example: the weather service returns the tempretature in celsius but we want to print it
+		in fahrenheit (see codewithmosh lecture 11)
+		
+	--composing completableFutures
+		we can compose completable futures to perform multiple tasks declaratively
+		(check out ComposeCompletableFutures.java)
+		
+	--combining completableFutures
+		one of the powerful features, it allows to start two task simultaneously and combine the result at the end	
+		(check out CombineCompFutures.java)
+		
+	--waiting for many tasks to compelete
+		we can set multiple tasks to be completed and after we have the possibility to process the results
+		(check out ManyTasks.java)
+		
+	--waiting for the first task to complete
+		if we have multiple tasks that running and we want to display the result of the fastest
+		one.
+		example: we have two tasks that retrieve data from a weather service, the first one is fast and the other is slow
+		(check out FastestTask.jaava)
+		
+	--timeouts
+		when dealing with a service we want to have limits of how much we are going to wait to get a response
+		
+		--example:
+		CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+					LongTask.simulate(); 
+					return 10;
+				});
+				
+		future.completeOnTimeout(1, 1, TimeUnit.SECONDS)
+			.get();
+
+
+
+
+	
+
+
+
+	

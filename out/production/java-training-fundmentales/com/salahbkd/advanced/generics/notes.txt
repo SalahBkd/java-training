@@ -1,0 +1,135 @@
+--the need for generics
+	In a nutshell, generics enable types (classes and interfaces) to be parameters when defining
+	classes, interfaces and methods. Much like the more familiar formal parameters used in method
+	declarations, type parameters provide a way for you to re-use the same code with different
+	inputs. The difference is that the inputs to formal parameters are values, while the inputs
+	to type parameters are types. code that uses generics has many benefits over non-generic code:
+
+	. Stronger type checks at compile time.
+	. Elimination of casts.
+	. Enabling programmers to implement generic algorithms.
+
+-- the problem that generics came to solve: (check out PoorGenericClass.java)
+
+-- Generics and primitive types
+	when creating an instance of a generic class we can only pass reference types as arguments
+	to the instance.
+	GenericList<float> : error!
+	GenericList<Float> : ok!
+
+	Java has wrapper classes for every primitive type:
+		int : Integer
+		boolean: Boolean
+		float: Float
+
+	GenericList<Integer> list = new GenericList<>();
+	list.add(10); // AUTOBOXING
+	list.get(0); // UNBOXING
+
+-- Generic classes (check out GenericClass.java)
+
+-- Generic classes and the constraints, help us create classes that works only with specific
+	types by adding bounded type parameters (classes & interfaces).
+	examples:
+		. Number...etc (check out ConstrainedGenericClass.java)
+		. public class ConstrainedGenericClass<T extends Number> {..}
+		. public class ConstrainedGenericClass<T extends Comparable & Cloneable> {..}
+
+-- Type Erasure
+	Generics were introduced to the Java language to provide tighter type checks at compile time
+	and to support generic programming. To implement generics, the Java compiler applies
+	type erasure to:
+		. Replace all type parameters in generic types with their bounds or Object if the type
+			parameters are unbounded. The produced bytecode, therefore, contains only ordinary
+			classes, interfaces, and methods.
+		. Insert type casts if necessary to preserve type safety.
+		. Generate bridge methods to preserve polymorphism in extended generic types.
+
+	Fach kandiro new GenericClass<Integer>() dik Integer will be erased and a type of name Object
+	ay remplaceha (exemple: chuf lbyte code dyal chi program after a build) wla bounded parameter
+	ila kan fi les contraintes (ila kano bzaf d constraints lwal hwa li kay remplaceh),
+	hadchi kaml 4a bach ykoun 3adna tighter type checking at compile time w machi fi run-time.
+
+--Comparable interface
+	(check out User.java)
+
+--Generic methods
+	(check out Utils.java)
+
+--Multiple type parameters
+	we can declare methods and classes with multiple type parameters
+
+	. void <K, V> method(K param1, V param2) {..}
+	. class GenericClass<K, V> {..}
+
+-- Generic classes and inheritance
+
+	Number integer = new Integer(10); // valid
+	ListOfNumbers<Number> integers = new listOfNumbers<Integer>(); // invalid (PROBLEM)
+
+	the second approach is invalid, because java internally maintains a list of Object not a list
+	of Number or Integer (TYPE ERASURE).
+
+	A ListOfNumber<Integer> is not a sub-type of ListOfNumbers<Number> even though Integer
+	inherits from Number, when using generics we are dealing only with a single class (Object).
+
+	SOLUTION: wildcards.
+
+-- Wildcards
+	(check out TestBuilding.java Building.java House.java)
+
+	without wildcards we will need to create printNumbers() and addToList() methods for every
+	sub-type of Number.
+
+	printNumbers(new List<Number>());
+	printNumbers(new List<Integer>());
+	static void printNumbers(List<? extends Number> numbers) {
+		// print the numbers
+	}
+
+	addToList(new Integer());
+	addToList(new Number());
+	static void addToList(List<? super Number> numbers) {
+		// add numbers to the list
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

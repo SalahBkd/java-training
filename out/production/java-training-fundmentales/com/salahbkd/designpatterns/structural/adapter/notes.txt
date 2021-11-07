@@ -1,0 +1,10 @@
+--the problem
+    think of the adapter we use in real life
+    used to convert the interface of a class into a different form
+
+    3adna app bghat tahdar m3a email service like Gmail, so khas nzidoha f une liste dyal
+    providers li 3adna ms qbal hadchi khasna n importew library dyal gmail li hya class
+    w had class khas y implementer une interface dyal EmailProvider, so we wrap an adapter
+    GmailAdapter around had GmailClient class library, w mn baed we use GmailAdapter class in our
+    program so that we have access to library features + our interface implementation
+    features.

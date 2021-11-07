@@ -1,0 +1,190 @@
+Topics:
+	1- key terms and concepts
+	2- working with threads
+	3- concurrency issues
+	4- synchronization
+	5- volatile fields
+	6- atomic objects
+	
+--1
+	Process: instance dyal wahd program (ex: naqdar n7al MS Word w MPC fi nafs lwaqt)
+	Thread: sub-process (ex: kanktab fi MS Word w spell checking tahuwa khdam)
+		MS Word: process
+		kanktab: sub-process
+		spell check: sub-process
+		
+	we can have concurrency at the process level and the thread level
+	
+	--uses of threads
+	CPUs 3adna fihom bzaf cores ya3ni we have to utilize them for better performance
+	
+	ex: ila 3adna five clients kaysiftou requests li wahd servlet instance, andiro 5 threads 
+	one for each client (this is how its handled behind the scenes)
+	
+2- (check out TestNotifyViaEmail.java & NotifyViaEmail.java)
+
+	what if we have to notify 100000 users and we don't have enough threads to do so, JVM 
+	kaykhadam mechanism dyal scheduling, kay3raf chno 4a y executer and for how long, scheduler
+	switches btw threads given each a slice of the CPU time, hadchi happens so fast kaybanlna
+	its happend parallelly
+	
+	--starting a thread
+	--pausing a thread
+	--joining a thread
+		how we are going to start a thread directly after another thread is finished ?
+		maymkanch ndiro sleep() 7it ma3arfinch ch7al d lwaqt notifying bi email 4atakhad
+		so we have to ----> join threads together
+		ex: we want to notify the clients via sms after we have notfied them via email.
+			how we know that the notifying via email is completed ?
+			
+	--interrupting a thread
+		kifach 4andiro cancel lchi thread ?
+		ex: canceling notifying the clients after 1sec
+		
+		an interrupt method doesn't stop a thread, it simply sends an interrupt request 
+		to support interruption we should constantly check for interruption and act 
+		accordingly.
+		
+		if a thread is sleeping and we send an interrupting request to it, it throws an 
+		exception thats why we surround .sleep() with try/catch.
+		
+--3
+	--Race conditions: shorturl.at/kBRSZ
+	
+	imagine we want to track the number of client who got notified
+	we are going create a class NotofiedClients with a field to store the number of notified 
+	clients, each time we start a thread we passe it an instance of that class and increment 
+	the field, after all the threads are finished the field is not going to have unexpected
+	results.
+	
+	--WHY?
+		A race condition occurs when two or more threads can access shared data and they try 
+		to change it at the same time.
+	
+		.Example:
+		Thread 1: reads x, value is 7
+		Thread 1: add 1 to x, value is now 8
+		Thread 2: reads x, value is 7
+		Thread 1: stores 8 in x
+		Thread 2: adds 1 to x, value is now 8
+		Thread 2: stores 8 in x
+		
+	--Visibility problem
+	
+-- Strategies for Thread Safe Code
+	. Confinement: avoid sharing data across threads, kola thread endha data object dyalha 
+		mn ba3d we combine them and produce the result.
+		(code demonstration check out the lecture codeWithMosh)
+		
+	. Immutability: object kaykoun immutable after its created, example: String in java
+	
+	. Synchronization: avoid multiple threads to access the same object concurrently, using 
+		locks.
+		(code demonstration check out the lecture codeWithMosh)
+		
+		metaphore: ila dkhal chi person li hotel room, khasna natsanaw 7ta yakhraj 3ad 
+		nqadrou ndakhlou liha.
+		
+		example:
+			lock data object
+			read object field
+			update it
+			store it
+			unlock data object
+			
+		deadlocks may happen in this strategy that's why it not recommended.
+		example: thread1 wait for thread2 to unlock the data and vice-versa.
+		
+		in java we can achieve synchronization with: 
+			. Lock object (RentrantLock)
+			. Synchronized keyword
+		
+		this two approaches are not recommended in new code, just in case i'm working with an old code base.
+		because we are not utilizing the benefits of concurrency since the threads will modify the data sequencially 
+		and we can run into deadlocks and buggy code.
+		
+		another approach: 
+			volatile keyword: it solves the visibility problem but it doesn't solve the race problem.
+			if a thread changes the data it makes sure that the other thread reads the modified data.
+			
+			example:
+				thread1: start downloading a file 
+				thread2: checks if the download is finished
+				
+				in thread2 we constantly checking if the download is finished via a field in a class used by thread1
+				thread1 is finished but thread2 can't see that thread1 is finished to continue.
+				
+				why ?
+				because of the CPU cache, when thread1 and thread2 started they have the same value of the field used to
+				check if the download is finished, when thread1 finished and sets the value to true, thread2 can't see 
+				the changes because it already have the old value in its cache it's a visibility problem.
+				
+				solution !
+				we can make the field isDone as volatile meaning that the field is unstable.
+				(mat3awalch 3la data li kayna fi cache dima bqa tjibha mn RAM, ila thread1 salat w updates the isDone field
+				value dyal isDone will be written directly in the main memory)
+				
+				the volatile keyword ensures that the changes to a field is visible across threads.
+			
+	. Atomic objects: example: executing the increment operation as a one atomic operation 
+		if we are using counters in our code when dealing with threads its recommended to use atomic objects like
+		AtomicInteger...etc
+		
+		how it works internally ?
+		the CPU uses a technique called compare and swap
+		example: get the old value compare it to the new value if they are different swap them.s
+		
+		--Adders
+		if we are dealing with counter frequently its recommended to use Adders classes better than atomic objects
+		example: LongAdder...etc
+	
+	
+	. Partitioning: bzaf thread accessing a collection object but wa7da fihom li endha
+		le droit tacceder l un segment mn had collection.
+		
+		
+		--concurrent collections
+		synchronized collections achieve thread safety by using locks, its okay for most cases
+		but it will be a problem of scalibility when the number of threads grows
+		
+		--synchronized collections
+		with synchronized collections all operations of a collection will be thread safe.
+		
+		collection = Collections.synchronizedCollection(new ArrayList<>());
+		thread1.collection.add(1);
+		thread2.collection.add(2);
+		result: collection[2, 1]
+		
+		N.B: concurrent collections are faster than synchronized collections because they don't use synchronization
+		Map<Integer, String> map = new HashMap<>() ------> Map<Integer, String> map = new ConcurrentHashMap<>()
+		
+--Signaling threads
+	wait() & notify(): kifach wa7d thread1 ata3raf bli thread2 lakhra salat.
+	we put thread1 to wait() fach thread2 atsali we notify() thread1
+	
+	N.B: not recommended to use it in new code.
+	
+Summary:
+	Multi threader application can do more in less time but they are challenging to build, we can run into various problems
+	like race conditions when two or more threads are trying to update the same object and the visibility problem when
+	a thread may change an object but the change is not visible to other threads because of caching, there are various 
+	solutions to this problems, confinement which is not sharing data across threads, and sychronization (locking) which 
+	makes our code runs sequencially (not recommended), atomic types they don't use locks but uses compare and swap 
+	technique which is great for counters, partitioning which a technique used by java concurrent collections that allows 
+	multiple threads to access a partition of the collection concurrently. next section will explain the newer and higher 
+	level constructs for building concurrent applications in java.
+	
+	
+
+
+
+	
+		
+		
+			
+		 
+		
+		
+	
+		
+	

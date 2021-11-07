@@ -1,0 +1,15 @@
+used to limit instances of a class to one
+
+Java API that use the singleton
+    System, Desktop, Runtime classes
+
+Avoid overusing the singleton pattern. consider refactoring a codebase with many instances
+of the singleton pattern.
+
+--CONS
+    violating the Single Responsibility Principle
+    Provide a global access point to that instance
+    Hard to test
+    Hard to deal with in multithreaded environment
+
+--TODO: singleton in multithreading

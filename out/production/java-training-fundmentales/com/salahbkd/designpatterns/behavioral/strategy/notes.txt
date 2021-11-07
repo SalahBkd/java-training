@@ -1,0 +1,22 @@
+--the problem
+    we wanna make an image storing feature, we gonna make a class ImageStorage that
+    gonna responsible for storing the images, but we want to COMPRESS & FILTER
+    the images before storing them.
+
+    the STORING & COMPRESSING & FILTERING operations must be separated or we gonna
+    violate the SR principle.
+
+--usecase
+    introduce a new interface Compresser with compressing functions
+    introduce a new interface Filter with filtering functions
+
+    introduce a new class JPEGCompresser that implements Compresser interface
+    introduce a new class PNGCompresser that implements Compresser interface
+
+    introduce a new class BWFilter that implements Filter interface
+    introduce a new class ContrastFilter that implements Filter interface
+
+    in main, we instantiate the ImageStorage class and we passe it what filter and what
+    compressor we want, CONSTRUCTOR DEPENDENCY INJECTION
+
+

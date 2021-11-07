@@ -1,0 +1,282 @@
+--------------------------------Java Web Dev------------------------------------
+
+--what is a servlet ?
+	Servlet technology is used to create a web application (resides at server side and generates a dynamic web page).
+
+--needs of servlet
+	in a client-server architecture, when a server gets a client request it need to process the request and generate 
+	dynamic web pages based on that.
+	
+--in java we can achieve that using: 
+	1---CGI (common gateway interface)
+	CGI technology enables the web server to call an external program and pass HTTP request information to the 
+	external program to process the request. For each request, it starts a new process.
+	
+	There are many problems in CGI technology:
+
+	. If the number of clients increases, it takes more time for sending the response.
+	. For each request, it starts a process, and the web server is limited to start processes.
+	. It uses platform dependent language e.g. C, C++, perl.
+	
+	2---Servlets
+		There are many advantages of Servlet over CGI. The web container creates threads for handling the multiple 
+		requests to the Servlet. Threads have many benefits over the Processes such as they share a common memory area, 
+		lightweight, cost of communication between the threads are low
+		
+		--servlet has access to the entire JAVA SE APIs
+		
+--web terms
+	--Web Server vs Application Server vs Web Container
+	
+	Web Server: 
+		serves static content HTML/IMAGES no server side programming
+		ex: Apache, IIS
+		
+	App Server: 
+		provides services to the app, handling transactions, DI, Security, concurrency
+		ex: GlassFish, JBoss, Weblogic, WebSphere
+		
+	Web container:
+		the app server is divided into logical containers:
+			WEB CONTAINERS that can run Servlets, JSF, JSP ex: Apache tomcat
+			APP CLIENT CONTAINER: DI, Security
+			EJB CONTAINER: JTA
+			
+	summary:
+		yaqdar ykoun 3adna Web Server (Apache) communicates m3a App Server (GlassFish) ola web container (Apache tomcat).
+		request comes to the web server.
+		
+		.the web server communicates with the web container (servlet)
+		.the web container has the mapping between the URLs and the servlets
+		.based on the request, the web container returns a response to the web server
+		.the web server returns the response to the client (browser)
+		
+--classpath vs buildpath
+	The class path is used at runtime to load compiled classes and resources.
+
+	The build path is used at compile time to find the dependencies needed to build your 
+	project.
+	
+--Setting the environment steps
+	.configure dyanmic web project
+	.setup an instance of apache tomcat server in Eclipse IDE
+	.set build path of project, add all servlet and jsp API libraries
+	
+	--deployment
+	we can deploy the project in WAR format and move it to the floder of tomcat 
+	installation to run it, this technique is used to test the app in a different server..etc
+	
+	--important: when you link the librarie APIs (JARS) like servlets and jsps jars we need
+	to put them in the LIB folder for easier integration in other servers.
+	
+	--alternatives setups
+		we can use a build tool Maven, Gradle to setup the project structure, configure build
+		path withh all the necessary libraries
+		
+		Jboss, GlassFish..etc
+		
+		Deploy and run the project with Maven or Gradle
+		
+	--MVC architecture is the way to go when working with WEB APPs with servlets and jsp
+	
+		
+--HTTP Requests
+	GET:
+		used to get the informations from the server
+		
+		data sent along is a query string visible in URL, hence insecure
+		
+		data limit 8KB, with few caveats
+		
+		indempotent: would not change anything on server side if request is sent out 
+		multiple times.
+		meta: nothing is going to change in the server even if you are hitting the server again and again
+		
+		
+	POST:
+		used to post/process infos on the server side
+		
+		typically used to modify data into a data store
+		
+		for example, registering on a website or checking out a shopping cart
+		
+		request data is sent in a seperate, secure component
+		
+		nonindempotent: would change anything on server side if request is sent out 
+		multiple times.
+		meta: if a click buy shopping cart multiple times it will send 3 requests
+		
+		
+--Servlet API Hierarchy
+	Servlet (ABSTRACT CLASS) -> GenericServlet (INTERFACE) -> HttpServlet (CLASS)
+	
+	ServletRequest (INTERFACE) -> HttpServletRequest (INTERFACE)
+	ServletResponse -> HttpServletResponse (INTERFACE)
+	
+--Forwarding and redirection and other APIs
+	--Forwarding with RequestDispatcher API
+	
+	our web app often needs to implement different functionalities we would have multiple servlets
+	that implements those functionalities and we need a way to communicate between them
+	
+	forwarding means dispatching the request to different resources of the applications (e.g servlets) 
+	
+	e.g: b4ina ndiro sum li two number and we want to square the result
+	SumServlet SquareServlet, client kaysift request after that req kadouz li sumServlet it sums the nums and it passes
+	the result to the SquareServlet via req object, finally we return the result to the client.
+	
+	e.g: we want to implement the login functionality, the request comes to loginServlet then it
+	dispatches the request to different resource of the app like login.jsp 
+	this technique prevents from accessing the login.jsp statically like "www.hplus.com/html/login.jsp"
+	
+	.hadchi kaml kaytdar fi server side.
+	.browser has no part
+	.used by frameworks like Struts
+	
+	(check out RedirectServlet.java)
+	
+	
+	--Forwarding using HTTPServletResponse.sendRedirect()
+	used to hand over control outside the current application context
+	e.g: having a hyperlink to navigate to other websites
+	
+	. browser plays a part
+	
+	--ServletConfig API
+	ServletConfig object is created by web container for each servlet to pass information to a servlet during
+	initialization.This object can be used to get configuration information from web.xml file or annotations.
+	
+	. used to pass configuration information to a particular servlet
+	e.g: registration of a web service URL. (check out GetServlet.java)
+	
+	--ServletContexte API
+	. used to pass configuration informations for the entire application
+	. init parameters defined in web.xml
+	. one instance ServletContexte for the application
+	
+	--HttpServletRequest object
+	. extends the ServletRequest API and provides all the request information to HTTP servlets
+	. Contains headers and data
+	. important API calls, req.getSession(), req.getHeader(), req.getParameter()...etc
+	
+	--HttpServletResponse object
+	.extends ServletResponse API and represents the response to client
+	.contains headers and data 
+	.important API calls
+	res.sendRedirect(String url), response.addCookie(Cookie cookie), response.getStatus(), response.getWriter()
+	res.setContentType(), res.encodeURL()
+	
+	
+	--Scopes (check out ScopesServlet.java)
+	.components in a web app needs to talk to each other by sharing information
+	.information stored in scope objects in the form of attributes
+	.four scopes (objects): 
+		Request: request/response objects are created per access
+		
+		Session: used to store some data during the execution of servlet, and to retrieve that data later.
+		 	.e.g: login, shopping carts..etc
+		 	.one per user/machine
+		 	.objects available across requests
+		 	
+		 
+		Context (Application): used to share data across the application
+			.data available across the app (different browsers, users)
+		
+		Page
+		
+	. the param/attrbt denotes the availability of that parameter/attribute for use
+	
+	--Parameters
+	.returns only String values
+	.cannot be set in scopes
+	.getParameter()
+	.can be configured in web.xml
+	
+	--Attributes
+	.returns objects
+	.can be set in scopes
+	.getAttribute("name")
+	.setAttribute("name", name)
+	
+--Servlet Life Cycle (CheckOut HomeServlet.java)
+	.entirly managed by the web container
+	.life cycle starts when the first request comes in
+	.life cycle ends when application is undeployed or server is down
+	
+	--steps
+		.request comes in
+		.Container scans web.xml and finds appropriate servlet class as per URL pattern
+		.Loads and instantiates servlet
+			.allocates ServletConfig and ServletContext objects
+			.allocates a new thread to request *
+			.allocates HTTPServletRequest and HTTPServletResponse *
+		.calls INIT method
+		.calls service method: calls doGet & doPost *
+		.calls destroy method	
+		
+		N.B: if there are many requests coming in for the same servlet, steps with * will happen again
+		N.B: all the requests that comes to a servlet are multithreaded, if the servlet is accessing a shared resource 
+				we must be careful of data inconsistency issues
+		
+		
+		init - can be overriden (GenericServlet)
+		service - must not be overriden (HTTPServlet)
+		destroy - can be overriden (GenericServlet)
+		doPost & doGet - MyServlet
+		
+		
+--Understanding JSP and its features
+	--problems with HTML pages
+	.allows to render static data only
+	.I/O operation to read and write HTML templates back is time consuming process
+	.stuffing HTML and CSS code directly inside servlet is tedious
+	
+	--JSP: 
+	.allows to create dynamic content
+	.HTML + Java code
+	.JSPs can work with other scripting languages like JavaScript
+	.every JSP page is translated to a servlet class (Login.jsp ---> LoginServlet.java)
+	.the translation is done by the web container (tomcat)
+	
+	--scriptlet <% %> - helps write java statements on JSP, goes inside _jspService() method
+	--expression: <%= %> - helps evaluates expressions on JSP, goes inside out.println() of _jspService()
+	--declaration <%! %> - helps declare variables and methods in a page's scripting langauge; code
+						   goes as seperate methods in translated servlet file.
+	
+	
+	--JSP life cycle
+	.first request comes in
+	.container translates .jsp file to servlet.java file
+	.compilation of servlet.java to servlet.class (translation & compilation happens once in JSP life cycle)
+	.translated file available under server folders
+	.jspDestroy & jspService & jspDestroy come from HTTPJspBase
+	.the rest of the life cycle the same as servlet life cycle
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+		
+		
+		
+		
+	
+
+
+		
